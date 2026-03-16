@@ -1,9 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 
 const SPEED_PRESETS = {
-  'very-slow': { vx: 0.03, vy: [0.015, 0.03], ws: [0.08, 0.15], wa: [0.05, 0.1], rs: [0.001, 0.003] },
   'slow': { vx: 0.06, vy: [0.025, 0.05], ws: [0.12, 0.25], wa: [0.08, 0.18], rs: [0.002, 0.006] },
-  'medium': { vx: 0.12, vy: [0.05, 0.09], ws: [0.2, 0.4], wa: [0.12, 0.25], rs: [0.004, 0.01] },
 };
 
 const rand = (min, max) => min + Math.random() * (max - min);
@@ -59,8 +57,6 @@ export const DecorativeShapes = ({
   const particlesRef = useRef([]);
   const animRef = useRef(null);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const effectiveCount = isMobile ? Math.ceil(count / 2) : count;
   const sp = SPEED_PRESETS[speed] || SPEED_PRESETS.slow;
 
   const createParticle = useCallback((w, h) => ({
@@ -89,6 +85,7 @@ export const DecorativeShapes = ({
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const effectiveCount = Math.round(count * Math.min(1, (rect.width * rect.height) / (800 * 600)));
       particlesRef.current = Array.from({ length: effectiveCount },
         () => createParticle(rect.width, rect.height));
     };
@@ -150,7 +147,7 @@ export const DecorativeShapes = ({
       observer.disconnect();
       if (animRef.current) cancelAnimationFrame(animRef.current);
     };
-  }, [effectiveCount, createParticle]);
+  }, [count, createParticle]);
 
   return (
     <canvas

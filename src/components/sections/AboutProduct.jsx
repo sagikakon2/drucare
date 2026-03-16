@@ -100,7 +100,7 @@ export const AboutProduct = () => (
             {QUALITIES.map(({ icon: Icon, text }) => (
               <span
                 key={text}
-                className="inline-flex items-center gap-2 bg-primary/8 text-primary text-xs font-medium px-3 py-2 rounded-full"
+                className="inline-flex items-center gap-2 bg-primary/8 text-primary text-xs font-medium px-3 py-2 rounded-full hover-badge"
               >
                 <Icon className="w-3.5 h-3.5" />
                 {text}
@@ -114,7 +114,7 @@ export const AboutProduct = () => (
           {STATS.map((s) => (
             <div
               key={s.label}
-              className="text-center p-3 sm:p-5 md:p-6 rounded-2xl border border-primary/8 hover:border-primary/15 transition-shadow duration-300 hover:shadow-lg"
+              className="text-center p-3 sm:p-5 md:p-6 rounded-2xl border border-primary/8 hover-card"
               style={{
                 background: 'rgba(255,255,255,0.7)',
                 backdropFilter: 'blur(8px)',

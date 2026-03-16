@@ -44,7 +44,6 @@ export const NavigationBar = () => {
       document.body.style.top = `-${scrollY}px`;
       document.body.style.insetInline = '0';
       document.body.style.overflow = 'hidden';
-      window.__lenis?.stop();
     } else {
       const top = document.body.style.top;
       document.body.style.position = '';
@@ -52,14 +51,12 @@ export const NavigationBar = () => {
       document.body.style.insetInline = '';
       document.body.style.overflow = '';
       if (top) window.scrollTo(0, parseInt(top, 10) * -1);
-      window.__lenis?.start();
     }
     return () => {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.insetInline = '';
       document.body.style.overflow = '';
-      window.__lenis?.start();
     };
   }, [mobileOpen]);
 
@@ -79,6 +76,7 @@ export const NavigationBar = () => {
           insetInlineStart: scrolled ? '16px' : '0px',
           insetInlineEnd: scrolled ? '16px' : '0px',
           borderRadius: scrolled ? '16px' : '0px',
+          border: '1px solid transparent',
           ...(scrolled ? glassStyle : {}),
         }}
       >
@@ -95,7 +93,7 @@ export const NavigationBar = () => {
               <li key={link.href}>
                 <button
                   onClick={() => scrollTo(link.href)}
-                  className="text-sm font-medium px-3.5 py-2 rounded-lg transition-all duration-200 hover:bg-primary/8 hover:text-primary text-text cursor-pointer"
+                  className="text-sm font-medium px-3.5 py-2 rounded-lg transition-colors duration-250 ease-out hover:bg-primary/8 hover:text-primary text-text cursor-pointer"
                 >
                   {link.label}
                 </button>
@@ -108,7 +106,7 @@ export const NavigationBar = () => {
               href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-primary text-white hover:bg-primary/90 rounded-xl px-5 py-2.5 text-sm font-semibold cursor-pointer transition-all min-h-[40px] inline-flex items-center gap-2"
+              className="bg-primary text-white hover:bg-primary/90 rounded-xl px-5 py-2.5 text-sm font-semibold cursor-pointer min-h-[40px] inline-flex items-center gap-2 hover-btn"
               style={{
                 boxShadow: '0 2px 8px rgba(46, 125, 50, 0.3)',
               }}

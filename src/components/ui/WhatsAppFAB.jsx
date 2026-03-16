@@ -6,7 +6,7 @@ export const WhatsAppFAB = () => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label="WhatsApp"
-    className="fixed bottom-5 start-5 z-50 w-12 h-12 md:w-14 md:h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg animate-pulse-gentle cursor-pointer hover:scale-110 transition-transform"
+    className="fixed bottom-5 start-5 z-50 w-12 h-12 md:w-14 md:h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg animate-pulse-gentle cursor-pointer hover-scale"
   >
     <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-white" />
   </a>

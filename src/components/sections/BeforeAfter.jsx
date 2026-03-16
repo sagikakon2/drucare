@@ -56,7 +56,7 @@ const Lightbox = ({ image, onClose, onPrev, onNext, index, total }) => (
     >
       <button
         onClick={onClose}
-        className="absolute -top-12 end-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors z-20"
+        className="absolute -top-12 end-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light z-20"
         aria-label="סגור"
       >
         <X className="w-5 h-5 text-white" />
@@ -66,11 +66,11 @@ const Lightbox = ({ image, onClose, onPrev, onNext, index, total }) => (
         <div className="p-5 md:p-6 flex items-center justify-between">
           <h3 className="font-bold text-white text-lg">{image.caption}</h3>
           <div className="flex items-center gap-2 shrink-0">
-            <button onClick={onPrev} className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors" aria-label="הקודם">
+            <button onClick={onPrev} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light" aria-label="הקודם">
               <ChevronRight className="w-5 h-5 text-white" />
             </button>
             <span className="text-white/50 text-sm min-w-[40px] text-center" dir="ltr">{index + 1}/{total}</span>
-            <button onClick={onNext} className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors" aria-label="הבא">
+            <button onClick={onNext} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light" aria-label="הבא">
               <ChevronLeft className="w-5 h-5 text-white" />
             </button>
           </div>
@@ -126,15 +126,15 @@ export const BeforeAfter = () => {
               <img
                 src={image.src}
                 alt={image.caption}
-                className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full aspect-square object-cover hover-zoom"
                 loading="lazy"
                 width={300}
                 height={300}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent hover-reveal flex items-end p-3">
                 <p className="text-white text-xs font-medium leading-tight">{image.caption}</p>
               </div>
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 flex items-center justify-center hover-reveal">
                 <div className="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center shadow-lg">
                   <ZoomIn className="w-4 h-4 text-text" />
                 </div>

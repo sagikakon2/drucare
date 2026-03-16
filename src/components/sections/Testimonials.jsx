@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SparklesCore } from '@/components/effects/SparklesCore';
 
@@ -48,31 +47,46 @@ const getInitials = (name) => {
 };
 
 export const Testimonials = () => {
-  const isRTL = typeof document !== 'undefined' && document.documentElement.dir === 'rtl';
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: 'center',
-    direction: isRTL ? 'rtl' : 'ltr',
-    slidesToScroll: 1,
-  });
-
+  const trackRef = useRef(null);
   const intervalRef = useRef(null);
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const [index, setIndex] = useState(0);
+
+  const count = TESTIMONIALS.length;
+
+  const scrollToIndex = useCallback((i) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slide = track.children[i];
+    if (!slide) return;
+    const trackRect = track.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    const offset = slideRect.left - trackRect.left + track.scrollLeft - (trackRect.width - slideRect.width) / 2;
+    track.scrollTo({ left: offset, behavior: 'smooth' });
+    setIndex(i);
+  }, []);
+
+  const scrollPrev = useCallback(() => {
+    setIndex((prev) => {
+      const next = (prev - 1 + count) % count;
+      scrollToIndex(next);
+      return next;
+    });
+  }, [count, scrollToIndex]);
+
+  const scrollNext = useCallback(() => {
+    setIndex((prev) => {
+      const next = (prev + 1) % count;
+      scrollToIndex(next);
+      return next;
+    });
+  }, [count, scrollToIndex]);
 
   useEffect(() => {
-    if (!emblaApi) return;
-    intervalRef.current = setInterval(() => emblaApi.scrollNext(), 6000);
-    const stopAutoplay = () => {
-      clearInterval(intervalRef.current);
-    };
-    emblaApi.on('pointerDown', stopAutoplay);
-    return () => {
-      clearInterval(intervalRef.current);
-      emblaApi.off('pointerDown', stopAutoplay);
-    };
-  }, [emblaApi]);
+    intervalRef.current = setInterval(scrollNext, 6000);
+    return () => clearInterval(intervalRef.current);
+  }, [scrollNext]);
+
+  const stopAutoplay = () => clearInterval(intervalRef.current);
 
   return (
     <section id="testimonials" className="bg-text relative overflow-hidden" style={{ paddingBlock: 'var(--section-py)' }}>
@@ -97,66 +111,69 @@ export const Testimonials = () => {
         </div>
 
         <div className="relative">
-          <div ref={emblaRef} className="overflow-hidden">
-            <div className="flex items-stretch">
-              {TESTIMONIALS.map((t, i) => (
+          <div
+            ref={trackRef}
+            className="flex items-stretch gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+            style={{ scrollPaddingInline: '5%' }}
+            onPointerDown={stopAutoplay}
+          >
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={i}
+                className="testimonial-slide min-w-0 shrink-0 snap-center"
+              >
                 <div
-                  key={i}
-                  className="testimonial-slide min-w-0 px-3"
+                  className="h-full p-6 md:p-8 rounded-2xl flex flex-col gap-4 hover-card"
+                  style={{
+                    background: 'rgba(255,255,255,0.06)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                  }}
                 >
-                  <div
-                    className="h-full p-6 md:p-8 rounded-2xl flex flex-col gap-4 transition-shadow duration-300 hover:shadow-2xl"
-                    style={{
-                      background: 'rgba(255,255,255,0.06)',
-                      backdropFilter: 'blur(12px)',
-                      WebkitBackdropFilter: 'blur(12px)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                    }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <Quote className="w-8 h-8 text-gold/30" />
-                      <div className="flex gap-0.5">
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <Star
-                            key={j}
-                            className={`w-4 h-4 ${
-                              j < t.rating ? 'text-yellow-400 fill-yellow-400' : 'text-white/10'
-                            }`}
-                          />
-                        ))}
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <Quote className="w-8 h-8 text-gold/30" />
+                    <div className="flex gap-0.5">
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <Star
+                          key={j}
+                          className={`w-4 h-4 ${
+                            j < t.rating ? 'text-yellow-400 fill-yellow-400' : 'text-white/10'
+                          }`}
+                        />
+                      ))}
                     </div>
+                  </div>
 
-                    <p className="text-base leading-relaxed text-white/85 flex-1">
-                      &quot;{t.quote}&quot;
-                    </p>
+                  <p className="text-base leading-relaxed text-white/85 flex-1">
+                    &quot;{t.quote}&quot;
+                  </p>
 
-                    <div className="pt-4 border-t border-white/10 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-secondary flex items-center justify-center text-white font-bold text-sm shrink-0">
-                        {getInitials(t.name)}
-                      </div>
-                      <div>
-                        <p className="font-bold text-sm text-white">{t.name}</p>
-                        <p className="text-xs text-white/50">{t.context}</p>
-                      </div>
+                  <div className="pt-4 border-t border-white/10 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-secondary flex items-center justify-center text-white font-bold text-sm shrink-0">
+                      {getInitials(t.name)}
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm text-white">{t.name}</p>
+                      <p className="text-xs text-white/50">{t.context}</p>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
 
           <button
             onClick={scrollPrev}
-            className="absolute top-1/2 -translate-y-1/2 end-full me-2 hidden lg:flex w-10 h-10 items-center justify-center rounded-full cursor-pointer transition-colors bg-white/5 hover:bg-white/10 text-white/60 hover:text-white"
+            className="absolute top-1/2 -translate-y-1/2 end-full me-2 hidden lg:flex w-10 h-10 items-center justify-center rounded-full cursor-pointer bg-white/5 text-white/60 hover-circle-light"
             aria-label="הקודם"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute top-1/2 -translate-y-1/2 start-full ms-2 hidden lg:flex w-10 h-10 items-center justify-center rounded-full cursor-pointer transition-colors bg-white/5 hover:bg-white/10 text-white/60 hover:text-white"
+            className="absolute top-1/2 -translate-y-1/2 start-full ms-2 hidden lg:flex w-10 h-10 items-center justify-center rounded-full cursor-pointer bg-white/5 text-white/60 hover-circle-light"
             aria-label="הבא"
           >
             <ChevronLeft className="w-5 h-5" />

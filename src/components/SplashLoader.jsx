@@ -3,8 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 const CRITICAL_IMAGES = [
   '/images/logo.png',
   '/images/product-jar.jpeg',
-  '/images/product-field.jpeg',
-  '/images/hero-woman-horse.jpeg',
 ];
 
 const CRITICAL_VIDEO = '/videos/hero-mobile.mp4';

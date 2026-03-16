@@ -72,7 +72,7 @@ export const BrandStory = () => (
             className="relative group h-full"
           >
             <div
-              className="flex gap-5 p-6 rounded-2xl h-full transition-shadow duration-300 hover:shadow-xl"
+              className="flex gap-5 p-6 rounded-2xl h-full hover-card"
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 backdropFilter: 'blur(12px)',
@@ -80,7 +80,8 @@ export const BrandStory = () => (
                 border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
-              <div className="w-12 h-12 shrink-0 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
+              <div className="w-12 h-12 shrink-0 rounded-xl bg-white/10 flex items-center justify-center hover-icon-pop"
+                style={{ '--hover-bg': 'rgba(255,255,255,0.2)' }}>
                 <Icon className="w-5 h-5 text-gold" />
               </div>
               <div className="flex flex-col gap-2">

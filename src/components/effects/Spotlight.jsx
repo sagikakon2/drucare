@@ -4,9 +4,6 @@ export const Spotlight = ({ className = '', fill }) => {
   const spotRef = useRef(null);
 
   useEffect(() => {
-    const isTouchDevice = 'ontouchstart' in window;
-    if (isTouchDevice) return;
-
     const handleMouse = (e) => {
       const el = spotRef.current;
       if (!el) return;

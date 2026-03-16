@@ -1,4 +1,5 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const FAQS = [
   {
@@ -47,6 +48,33 @@ const FAQS = [
   },
 ];
 
+const AccordionItem = ({ question, answer }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="bg-card rounded-2xl border border-primary/5 overflow-hidden hover-card">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-start justify-between gap-4 px-6 py-5 text-start text-base font-semibold text-text hover:text-primary cursor-pointer transition-colors"
+        style={{ color: open ? 'var(--color-primary)' : undefined }}
+      >
+        {question}
+        <ChevronDown
+          className={`w-4 h-4 shrink-0 translate-y-0.5 text-text-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+      <div
+        className="grid transition-[grid-template-rows] duration-200"
+        style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+      >
+        <div className="overflow-hidden">
+          <p className="px-6 pb-5 text-sm text-text-muted leading-relaxed">{answer}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const FAQ = () => (
   <section id="faq" className="bg-bg relative" style={{ paddingBlock: 'var(--section-py)' }}>
     <div className="max-w-3xl mx-auto px-5 md:px-8">
@@ -59,22 +87,11 @@ export const FAQ = () => (
           </h2>
         </div>
 
-      <Accordion type="single" collapsible className="space-y-3">
+      <div className="space-y-3">
         {FAQS.map((faq, i) => (
-          <AccordionItem
-            key={i}
-            value={`faq-${i}`}
-            className="bg-card rounded-2xl border border-primary/5 px-6 overflow-hidden hover:shadow-md hover:border-primary/10 transition-all duration-300"
-          >
-            <AccordionTrigger className="text-start text-base font-semibold text-text py-5 hover:text-primary cursor-pointer [&[data-state=open]]:text-primary">
-              {faq.q}
-            </AccordionTrigger>
-            <AccordionContent className="text-text-muted leading-relaxed pb-5">
-              {faq.a}
-            </AccordionContent>
-          </AccordionItem>
+          <AccordionItem key={i} question={faq.q} answer={faq.a} />
         ))}
-      </Accordion>
+      </div>
     </div>
   </section>
 );

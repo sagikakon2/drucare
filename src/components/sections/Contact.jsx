@@ -1,47 +1,53 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { ArrowLeft, Loader2, Phone, Mail, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { ShimmerButton } from '@/components/effects/ShimmerButton';
 import { base44 } from '@/api/base44Client';
 
-const schema = z.object({
-  name: z.string().min(1, 'שם הוא שדה חובה'),
-  phone: z.string().regex(/^[\d\-+() ]{7,15}$/, 'מספר טלפון לא תקין'),
-  email: z.string().email('כתובת אימייל לא תקינה').optional().or(z.literal('')),
-  message: z.string().optional(),
-});
+const validate = (data) => {
+  const errors = {};
+  if (!data.name.trim()) errors.name = 'שם הוא שדה חובה';
+  if (!/^[\d\-+() ]{7,15}$/.test(data.phone)) errors.phone = 'מספר טלפון לא תקין';
+  if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'כתובת אימייל לא תקינה';
+  return errors;
+};
 
 export const Contact = () => {
+  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm({ resolver: zodResolver(schema) });
 
-  const onSubmit = async (data) => {
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+    if (errors[name]) setErrors((e) => ({ ...e, [name]: undefined }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const errs = validate(form);
+    if (Object.keys(errs).length) { setErrors(errs); return; }
+
+    setIsSubmitting(true);
     try {
       await base44.entities.ContactLead.create({
-        name: data.name,
-        phone: data.phone,
-        email: data.email || '',
-        message: data.message || '',
+        name: form.name,
+        phone: form.phone,
+        email: form.email || '',
+        message: form.message || '',
       });
     } catch {
-      // Fallback: open WhatsApp with the message
-      const text = `שם: ${data.name}\nטלפון: ${data.phone}\n${data.email ? `אימייל: ${data.email}\n` : ''}${data.message ? `הודעה: ${data.message}` : ''}`;
+      const text = `שם: ${form.name}\nטלפון: ${form.phone}\n${form.email ? `אימייל: ${form.email}\n` : ''}${form.message ? `הודעה: ${form.message}` : ''}`;
       window.open(`https://wa.me/972545661535?text=${encodeURIComponent(text)}`, '_blank');
     }
+    setIsSubmitting(false);
     setSubmitted(true);
-    reset();
+    setForm({ name: '', phone: '', email: '', message: '' });
     setTimeout(() => setSubmitted(false), 5000);
   };
 
   const inputClass =
-    'w-full rounded-xl px-4 py-3 text-base transition-colors outline-none bg-white border border-black/10 text-text placeholder:text-text-muted/50 focus:border-primary';
+    'w-full rounded-xl px-4 py-3 text-base transition-colors duration-200 ease-out outline-none bg-white border border-black/10 text-text placeholder:text-text-muted/50 focus:border-primary';
 
   return (
     <section id="contact" className="bg-bg-alt relative" style={{ paddingBlock: 'var(--section-py)' }}>
@@ -70,7 +76,7 @@ export const Contact = () => {
                 href="tel:0545661535"
                 className="flex items-center gap-4 group cursor-pointer p-4 rounded-xl hover:bg-primary/5 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hover-icon-pop">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
@@ -83,7 +89,7 @@ export const Contact = () => {
                 href="mailto:keren.druker@gmail.com"
                 className="flex items-center gap-4 group cursor-pointer p-4 rounded-xl hover:bg-primary/5 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hover-icon-pop">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
@@ -98,7 +104,7 @@ export const Contact = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group cursor-pointer p-4 rounded-xl hover:bg-[#25D366]/5 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover:bg-[#25D366]/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center hover-icon-pop" style={{ '--hover-bg': 'rgba(37,211,102,0.2)' }}>
                   <MessageCircle className="w-5 h-5 text-[#25D366]" />
                 </div>
                 <div>
@@ -130,17 +136,19 @@ export const Contact = () => {
                 <p className="text-text-muted text-sm">נחזור אליכם בהקדם.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+              <form onSubmit={onSubmit} className="flex flex-col gap-5">
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-text">
                     שם מלא <span className="text-red-400">*</span>
                   </label>
                   <input
-                    {...register('name')}
+                    name="name"
+                    value={form.name}
+                    onChange={onChange}
                     placeholder="הכניסו את שמכם"
                     className={inputClass}
                   />
-                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
+                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
@@ -148,29 +156,35 @@ export const Contact = () => {
                     טלפון <span className="text-red-400">*</span>
                   </label>
                   <input
-                    {...register('phone')}
+                    name="phone"
                     type="tel"
+                    value={form.phone}
+                    onChange={onChange}
                     placeholder="050-0000000"
                     className={inputClass}
                   />
-                  {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone.message}</p>}
+                  {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-text">אימייל</label>
                   <input
-                    {...register('email')}
+                    name="email"
                     type="email"
+                    value={form.email}
+                    onChange={onChange}
                     placeholder="email@example.com"
                     className={inputClass}
                   />
-                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
+                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-text">הודעה</label>
                   <textarea
-                    {...register('message')}
+                    name="message"
+                    value={form.message}
+                    onChange={onChange}
                     placeholder="ספרו לנו על בעל החיים שלכם..."
                     rows={4}
                     className={`${inputClass} resize-none`}

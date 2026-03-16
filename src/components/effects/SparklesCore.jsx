@@ -14,25 +14,19 @@ export const SparklesCore = ({
   const particles = useRef([]);
   const isVisible = useRef(false);
 
-  const prefersReducedMotion =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const effectiveDensity = isMobile ? Math.min(particleDensity, 30) : particleDensity;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
   const init = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    const dpr = Math.min(devicePixelRatio || 1, 2);
     const w = canvas.offsetWidth;
     const h = canvas.offsetHeight;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     ctx.scale(dpr, dpr);
 
-    particles.current = Array.from({ length: effectiveDensity }, () => ({
+    const density = Math.round(particleDensity * Math.min(1, (w * h) / (800 * 600)));
+    particles.current = Array.from({ length: density }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       size: Math.random() * (maxSize - minSize) + minSize,
@@ -40,11 +34,12 @@ export const SparklesCore = ({
       speedY: (Math.random() - 0.5) * speed,
       opacity: Math.random() * 0.7 + 0.3,
     }));
-  }, [effectiveDensity, maxSize, minSize, speed, dpr]);
+  }, [particleDensity, maxSize, minSize, speed]);
 
   useEffect(() => {
     init();
-    if (prefersReducedMotion) return;
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -95,7 +90,7 @@ export const SparklesCore = ({
       observer.disconnect();
       window.removeEventListener('resize', onResize);
     };
-  }, [init, particleColor, prefersReducedMotion]);
+  }, [init, particleColor]);
 
   return (
     <canvas

@@ -65,10 +65,10 @@ const IngredientCard = ({ ingredient, index }) => {
       }}
       className="group relative"
     >
-      <div className="relative rounded-2xl p-6 md:p-7 bg-card border border-primary/5 hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
+      <div className="relative rounded-2xl p-6 md:p-7 bg-card border border-primary/5 hover-card h-full overflow-hidden">
         <div
-          className="absolute -top-12 -end-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500 blur-2xl"
-          style={{ background: color }}
+          className="absolute -top-12 -end-12 w-32 h-32 rounded-full hover-reveal blur-2xl"
+          style={{ background: color, '--hover-opacity': 0.07 }}
         />
 
         <div className="flex items-start gap-4">
@@ -94,7 +94,7 @@ const IngredientCard = ({ ingredient, index }) => {
         </div>
 
         <div
-          className="absolute bottom-0 inset-x-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute bottom-0 inset-x-0 h-1 hover-reveal"
           style={{
             background: `linear-gradient(to right, transparent, ${color}, transparent)`,
           }}

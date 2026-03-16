@@ -19,7 +19,7 @@ export const LogosBar = () => (
           {BADGES.map(({ icon: Icon, text }) => (
             <div
               key={text}
-              className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-primary/10 bg-card/80"
+              className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-primary/10 bg-card/80 hover-badge"
             >
               <Icon className="w-4.5 h-4.5 text-primary" />
               <span className="text-sm font-medium text-text">{text}</span>

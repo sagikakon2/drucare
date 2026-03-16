@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { SplashLoader } from '@/components/SplashLoader';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { WhatsAppFAB } from '@/components/ui/WhatsAppFAB';
@@ -30,7 +29,6 @@ const SectionDivider = ({ from = 'bg', to = 'bg-alt' }) => (
 
 const App = () => {
   const [ready, setReady] = useState(false);
-  useSmoothScroll();
 
   useEffect(() => {
     const fallback = document.getElementById('splash-fallback');

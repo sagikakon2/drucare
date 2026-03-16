@@ -64,10 +64,10 @@ export const Benefits = () => (
       <div className="flex flex-wrap justify-center items-stretch gap-6">
         {BENEFITS.map((b) => (
           <ThreeDCard key={b.title} intensity={5} className="group w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-            <div className="bg-card rounded-2xl p-6 md:p-8 border border-primary/5 shadow-sm hover:shadow-xl transition-shadow duration-300 relative overflow-hidden h-full">
+            <div className="bg-card rounded-2xl p-6 md:p-8 border border-primary/5 shadow-sm hover-card relative overflow-hidden h-full">
               <BorderBeam size={300} duration={12} colorFrom="#2E7D32" colorTo="#7CB342" bgClass="bg-card" />
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 hover-icon-pop">
                   <b.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-text mb-3">{b.title}</h3>

@@ -81,7 +81,7 @@ export const Footer = () => {
           </p>
           <button
             onClick={scrollToTop}
-            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer transition-colors"
+            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light hover-btn"
             aria-label="חזרה למעלה"
           >
             <ArrowUp className="w-4 h-4 text-white" />

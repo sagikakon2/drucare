@@ -59,7 +59,7 @@ export const Hero = () => (
             {badges.map(({ icon: Icon, text }) => (
               <span
                 key={text}
-                className="liquid-glass-light inline-flex items-center gap-2 bg-white/80 text-primary text-sm font-medium px-4 py-2 rounded-full"
+                className="liquid-glass-light inline-flex items-center gap-2 bg-white/80 text-primary text-sm font-medium px-4 py-2 rounded-full hover-badge"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <Icon className="w-4 h-4" />
@@ -82,7 +82,7 @@ export const Hero = () => (
             </ShimmerButton>
             <button
               onClick={() => scrollTo('#about')}
-              className="liquid-glass-light bg-white/70 rounded-full px-8 py-3.5 text-base font-medium cursor-pointer transition-all min-h-[48px] text-text hover:text-primary"
+              className="liquid-glass-light bg-white/70 rounded-full px-8 py-3.5 text-base font-medium cursor-pointer min-h-[48px] text-text hover:text-primary hover-btn"
             >
               <span className="relative z-10">למידע נוסף</span>
             </button>

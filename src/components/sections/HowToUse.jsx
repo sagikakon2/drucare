@@ -132,7 +132,7 @@ const TreatmentSelector = ({ treatments, activeIndex, onSelect }) => {
       <button
         onClick={() => scroll(-1)}
         disabled={!canScrollStart}
-        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 cursor-pointer border ${
+        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
           canScrollStart
             ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
             : 'bg-transparent border-transparent text-transparent pointer-events-none'
@@ -206,7 +206,7 @@ const TreatmentSelector = ({ treatments, activeIndex, onSelect }) => {
       <button
         onClick={() => scroll(1)}
         disabled={!canScrollEnd}
-        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 cursor-pointer border ${
+        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
           canScrollEnd
             ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
             : 'bg-transparent border-transparent text-transparent pointer-events-none'

@@ -23,7 +23,6 @@ export const NumberTicker = ({
       return;
     }
 
-    let start = 0;
     const startTime = performance.now();
     const animate = (now) => {
       const elapsed = (now - startTime) / 1000;
