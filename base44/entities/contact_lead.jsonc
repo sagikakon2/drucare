@@ -1,0 +1,23 @@
+{
+  "name": "ContactLead",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name of the lead"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "message": {
+      "type": "string",
+      "description": "Optional message from the lead"
+    }
+  },
+  "required": ["name", "phone"]
+}
