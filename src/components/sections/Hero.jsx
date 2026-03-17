@@ -4,6 +4,7 @@ import { Spotlight } from '@/components/effects/Spotlight';
 import { ShimmerButton } from '@/components/effects/ShimmerButton';
 import { FlowingBackground } from '@/components/effects/FlowingBackground';
 import { GradientMesh } from '@/components/effects/GradientMesh';
+import { CDN_IMAGES, CDN_VIDEOS } from '@/cdn';
 
 const scrollTo = (href) => {
   document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
@@ -100,8 +101,8 @@ export const Hero = () => (
 
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <video
-                src="/videos/hero-mobile.mp4"
-                poster="/images/product-jar.jpeg"
+                src={CDN_VIDEOS.heroMobile}
+                poster={CDN_IMAGES.productJar}
                 autoPlay
                 muted
                 loop

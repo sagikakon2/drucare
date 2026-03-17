@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import { CDN_IMAGES, CDN_VIDEOS } from '@/cdn';
 
 const CRITICAL_IMAGES = [
   '/images/logo.png',
-  '/images/product-jar.jpeg',
+  CDN_IMAGES.productJar,
 ];
 
-const CRITICAL_VIDEO = '/videos/hero-mobile.mp4';
+const CRITICAL_VIDEO = CDN_VIDEOS.heroMobile;
 
 function preloadImage(src) {
   return new Promise((resolve) => {

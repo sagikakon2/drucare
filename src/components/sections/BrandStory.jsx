@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Heart, Award, Beaker, MapPin } from 'lucide-react';
 import { SparklesCore } from '@/components/effects/SparklesCore';
+import { CDN_IMAGES } from '@/cdn';
 
 const MILESTONES = [
   {
@@ -30,7 +31,7 @@ export const BrandStory = () => (
     className="relative overflow-hidden"
     style={{
       paddingBlock: 'var(--section-py)',
-      backgroundImage: 'url(/images/hero-ranch.jpeg)',
+      backgroundImage: `url(${CDN_IMAGES.heroRanch})`,
       backgroundAttachment: 'fixed',
       backgroundPosition: 'center',
       backgroundSize: 'cover',

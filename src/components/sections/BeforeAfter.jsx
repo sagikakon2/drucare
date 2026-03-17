@@ -3,24 +3,25 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { NumberTicker } from '@/components/effects/NumberTicker';
 import { BorderBeam } from '@/components/effects/BorderBeam';
+import { CDN_IMAGES } from '@/cdn';
 
 const IMAGES = [
-  { src: '/images/before-after-face.jpeg', caption: 'שיקום עור הפנים' },
-  { src: '/images/result-1.jpeg', caption: 'ריפוי פצע ברגל' },
-  { src: '/images/result-2.jpeg', caption: 'שיקום פרווה תוך שבוע' },
-  { src: '/images/before-after-fur.jpeg', caption: 'שיקום פרווה מלא' },
-  { src: '/images/before-after-leg.jpeg', caption: 'ריפוי נגע ברגל' },
-  { src: '/images/before-after-skin.jpeg', caption: 'שיקום עור' },
-  { src: '/images/result-3.jpeg', caption: 'שיקום עור הגוף' },
-  { src: '/images/result-4.jpeg', caption: 'טיפול באזור פגוע' },
-  { src: '/images/before-after-tail.jpeg', caption: 'שיקום אזור הזנב' },
-  { src: '/images/before-after-wound.jpeg', caption: 'ריפוי פצע פתוח' },
-  { src: '/images/before-after-weeks.jpeg', caption: 'שינוי דרמטי תוך שבועות' },
-  { src: '/images/before-after-fullbody.jpeg', caption: 'שיקום גוף מלא' },
-  { src: '/images/result-5.jpeg', caption: 'ריפוי אזור רגיש' },
-  { src: '/images/result-6.jpeg', caption: 'שיקום מלא' },
-  { src: '/images/result-7.jpeg', caption: 'טיפול בגרדת' },
-  { src: '/images/result-8.jpeg', caption: 'תוצאות לאחר טיפול' },
+  { src: CDN_IMAGES.beforeAfterFace, caption: 'שיקום עור הפנים' },
+  { src: CDN_IMAGES.result1, caption: 'ריפוי פצע ברגל' },
+  { src: CDN_IMAGES.result2, caption: 'שיקום פרווה תוך שבוע' },
+  { src: CDN_IMAGES.beforeAfterFur, caption: 'שיקום פרווה מלא' },
+  { src: CDN_IMAGES.beforeAfterLeg, caption: 'ריפוי נגע ברגל' },
+  { src: CDN_IMAGES.beforeAfterSkin, caption: 'שיקום עור' },
+  { src: CDN_IMAGES.result3, caption: 'שיקום עור הגוף' },
+  { src: CDN_IMAGES.result4, caption: 'טיפול באזור פגוע' },
+  { src: CDN_IMAGES.beforeAfterTail, caption: 'שיקום אזור הזנב' },
+  { src: CDN_IMAGES.beforeAfterWound, caption: 'ריפוי פצע פתוח' },
+  { src: CDN_IMAGES.beforeAfterWeeks, caption: 'שינוי דרמטי תוך שבועות' },
+  { src: CDN_IMAGES.beforeAfterFullbody, caption: 'שיקום גוף מלא' },
+  { src: CDN_IMAGES.result5, caption: 'ריפוי אזור רגיש' },
+  { src: CDN_IMAGES.result6, caption: 'שיקום מלא' },
+  { src: CDN_IMAGES.result7, caption: 'טיפול בגרדת' },
+  { src: CDN_IMAGES.result8, caption: 'תוצאות לאחר טיפול' },
 ];
 
 const STATS = [

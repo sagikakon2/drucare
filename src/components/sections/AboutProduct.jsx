@@ -3,6 +3,7 @@ import { Check, Leaf, Sun, Shield, Recycle, Factory, Zap, ArrowLeft, ShoppingBag
 import { NumberTicker } from '@/components/effects/NumberTicker';
 import { ShimmerButton } from '@/components/effects/ShimmerButton';
 import { BorderBeam } from '@/components/effects/BorderBeam';
+import { CDN_IMAGES } from '@/cdn';
 
 const FEATURES = [
   'טיפוח ושיקום העור',
@@ -49,7 +50,7 @@ export const AboutProduct = () => (
           <div className="relative group">
             <div className="absolute -inset-4 bg-gradient-to-br from-primary/15 via-secondary/8 to-gold/10 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
             <img
-              src="/images/product-jar.jpeg"
+              src={CDN_IMAGES.productJar}
               alt="משחת הפלא - Natural Horse Care"
               className="relative w-full max-w-md mx-auto rounded-3xl shadow-xl group-hover:shadow-2xl transition-shadow duration-300"
               loading="lazy"
