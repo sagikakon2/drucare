@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { SplashLoader } from '@/components/SplashLoader';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { WhatsAppFAB } from '@/components/ui/WhatsAppFAB';
+import { FloatingOrderButton } from '@/components/ui/FloatingOrderButton';
 import { NavigationBar } from '@/components/sections/NavigationBar';
 import { Hero } from '@/components/sections/Hero';
 import { Benefits } from '@/components/sections/Benefits';
@@ -81,6 +82,7 @@ const App = () => {
         </main>
         <Footer />
         <WhatsAppFAB />
+        <FloatingOrderButton />
       </div>
     </>
   );
