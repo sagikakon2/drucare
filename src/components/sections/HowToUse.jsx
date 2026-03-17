@@ -119,102 +119,129 @@ const TreatmentSelector = ({ treatments, activeIndex, onSelect }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const activeCard = el.children[activeIndex];
+    if (activeCard) {
+      activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [activeIndex]);
+
   const scroll = (dir) => {
     const el = scrollRef.current;
     if (!el) return;
     const isRtl = getComputedStyle(el).direction === 'rtl';
-    const amount = 220 * (isRtl ? -1 : 1) * dir;
+    const amount = 260 * (isRtl ? -1 : 1) * dir;
     el.scrollBy({ left: amount, behavior: 'smooth' });
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => scroll(-1)}
-        disabled={!canScrollStart}
-        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
-          canScrollStart
-            ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
-            : 'bg-transparent border-transparent text-transparent pointer-events-none'
-        }`}
-        aria-label="גלול לתחילה"
-      >
-        <ChevronRight className="w-4 h-4" />
-      </button>
-
-      <div className="relative flex-1 min-w-0">
-        {canScrollStart && (
-          <div
-            className="absolute start-0 top-0 bottom-0 w-8 z-10 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(to left, transparent, var(--color-bg-alt))',
-            }}
-          />
-        )}
-        {canScrollEnd && (
-          <div
-            className="absolute end-0 top-0 bottom-0 w-8 z-10 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(to right, transparent, var(--color-bg-alt))',
-            }}
-          />
-        )}
-
-        <div
-          ref={scrollRef}
-          className="flex gap-2 overflow-x-auto scrollbar-hide px-1 py-1"
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => scroll(-1)}
+          disabled={!canScrollStart}
+          className={`hidden md:flex shrink-0 w-9 h-9 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
+            canScrollStart
+              ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
+              : 'bg-transparent border-transparent text-transparent pointer-events-none'
+          }`}
+          aria-label="גלול לתחילה"
         >
-          {treatments.map((t, i) => {
-            const Icon = t.icon;
-            const isActive = i === activeIndex;
-            return (
-              <button
-                key={t.title}
-                onClick={() => onSelect(i)}
-                className={`shrink-0 flex items-center gap-2 rounded-lg px-3 py-2 transition-all duration-300 cursor-pointer backdrop-blur-md ${
-                  isActive
-                    ? 'bg-white/70 border border-primary/25 shadow-[0_2px_10px_rgba(46,125,50,0.1)]'
-                    : 'bg-white/40 border border-white/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_1px_3px_rgba(0,0,0,0.04)] hover:bg-white/60'
-                }`}
-              >
-                <div
-                  className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-all duration-300 ${
-                    isActive ? 'bg-primary/12' : 'bg-primary/6'
+          <ChevronRight className="w-4 h-4" />
+        </button>
+
+        <div className="relative flex-1 min-w-0 overflow-hidden">
+          <div
+            ref={scrollRef}
+            className="flex gap-3 overflow-x-auto scrollbar-hide py-2"
+          >
+            {treatments.map((t, i) => {
+              const Icon = t.icon;
+              const isActive = i === activeIndex;
+              return (
+                <motion.button
+                  key={t.title}
+                  onClick={() => onSelect(i)}
+                  whileTap={{ scale: 0.95 }}
+                  className={`treatment-card shrink-0 flex flex-col items-center text-center rounded-2xl w-[130px] md:w-[155px] cursor-pointer relative overflow-hidden transition-all duration-300 ${
+                    isActive
+                      ? 'bg-white border-2 border-primary/40 shadow-treatment-active'
+                      : 'bg-white/50 border border-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:bg-white/80 hover:shadow-[0_4px_14px_rgba(0,0,0,0.07)]'
                   }`}
+                  style={{ padding: '1rem 0.5rem 0.875rem' }}
                 >
-                  <Icon
-                    className={`w-4 h-4 transition-colors duration-300 ${
-                      isActive ? 'text-primary' : 'text-primary/50'
+                  {isActive && (
+                    <motion.div
+                      layoutId="treatmentActiveBar"
+                      className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-l from-primary to-secondary"
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+
+                  <div
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mb-2.5 transition-all duration-300 ${
+                      isActive
+                        ? 'bg-gradient-to-br from-primary to-secondary shadow-[0_4px_14px_rgba(46,125,50,0.3)]'
+                        : 'bg-primary/8'
                     }`}
-                  />
-                </div>
-                <span
-                  className={`text-xs font-semibold whitespace-nowrap transition-colors duration-300 ${
-                    isActive ? 'text-primary' : 'text-text'
-                  }`}
-                >
-                  {t.title}
-                </span>
-              </button>
-            );
-          })}
+                  >
+                    <Icon
+                      className={`w-6 h-6 md:w-7 md:h-7 transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-primary/55'
+                      }`}
+                    />
+                  </div>
+
+                  <span
+                    className={`text-[0.8rem] md:text-[0.875rem] font-bold leading-snug whitespace-nowrap transition-colors duration-300 ${
+                      isActive ? 'text-primary' : 'text-text'
+                    }`}
+                  >
+                    {t.title}
+                  </span>
+                  <span
+                    className={`text-[0.625rem] md:text-[0.7rem] mt-1 leading-tight line-clamp-1 max-w-full transition-colors duration-300 ${
+                      isActive ? 'text-primary/65' : 'text-text-muted/60'
+                    }`}
+                  >
+                    {t.subtitle}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
+
+        <button
+          onClick={() => scroll(1)}
+          disabled={!canScrollEnd}
+          className={`hidden md:flex shrink-0 w-9 h-9 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
+            canScrollEnd
+              ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
+              : 'bg-transparent border-transparent text-transparent pointer-events-none'
+          }`}
+          aria-label="גלול להמשך"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
       </div>
 
-      <button
-        onClick={() => scroll(1)}
-        disabled={!canScrollEnd}
-        className={`hidden md:flex shrink-0 w-8 h-8 rounded-full items-center justify-center transition-all duration-200 ease-out cursor-pointer border ${
-          canScrollEnd
-            ? 'bg-card border-primary/12 text-text-muted hover:bg-primary/8 hover:text-primary hover:border-primary/25'
-            : 'bg-transparent border-transparent text-transparent pointer-events-none'
-        }`}
-        aria-label="גלול להמשך"
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </button>
+      <div className="flex justify-center items-center gap-1.5 md:hidden">
+        {treatments.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => onSelect(i)}
+            className={`rounded-full transition-all duration-300 ${
+              i === activeIndex
+                ? 'w-5 h-2 bg-primary'
+                : 'w-2 h-2 bg-primary/20'
+            }`}
+            aria-label={`טיפול ${i + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

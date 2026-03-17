@@ -108,7 +108,7 @@ export const NavigationBar = () => {
 
           <div className="hidden md:block">
             <a
-              href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
+              href="https://app.shopix.global/user/drucare"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-primary text-white hover:bg-primary/90 rounded-xl px-5 py-2.5 text-sm font-semibold cursor-pointer min-h-[40px] inline-flex items-center gap-2 hover-btn"
@@ -190,7 +190,7 @@ export const NavigationBar = () => {
                 className="space-y-3 pb-4"
               >
                 <a
-                  href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
+                  href="https://app.shopix.global/user/drucare"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full rounded-xl min-h-[52px] text-base font-bold cursor-pointer transition-all text-white"

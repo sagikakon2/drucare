@@ -144,7 +144,7 @@ export const AboutProduct = () => (
             <p className="text-sm text-text-muted font-medium mb-1">צנצנת 1000ml</p>
             <p className="text-xs text-text-muted mb-4">לבדיקת מחיר עדכני ומבצעים</p>
             <ShimmerButton
-              href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
+              href="https://app.shopix.global/user/drucare"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex rounded-full px-8 py-3 text-base font-semibold min-h-[48px] text-white"

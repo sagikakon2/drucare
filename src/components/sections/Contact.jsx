@@ -115,7 +115,7 @@ export const Contact = () => {
             </div>
 
             <ShimmerButton
-              href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
+              href="https://app.shopix.global/user/drucare"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full px-8 py-3.5 text-base font-semibold min-h-[48px] text-white w-fit mt-2"

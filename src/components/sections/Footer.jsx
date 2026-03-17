@@ -63,7 +63,7 @@ export const Footer = () => {
                 <span className="text-sm">keren.druker@gmail.com</span>
               </a>
               <a
-                href="https://app.shopix.global/user/drucare/category/-Nn_99HJ3c89138AhEIt/product/-NnA2laDq3QFY8sXf4ke"
+                href="https://app.shopix.global/user/drucare"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-white/60 hover:text-white transition-colors cursor-pointer"

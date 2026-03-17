@@ -9,6 +9,7 @@
   --color-text-muted: #5C6B5C;
   --color-secondary: #7CB342;
   --color-gold: #C9A96E;
+  --shadow-treatment-active: 0 4px 20px rgba(46, 125, 50, 0.18), 0 1px 6px rgba(46, 125, 50, 0.08);
 }
 
 :root {
