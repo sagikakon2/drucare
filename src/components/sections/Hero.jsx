@@ -107,6 +107,8 @@ export const Hero = () => (
                 muted
                 loop
                 playsInline
+                preload="auto"
+                crossOrigin="anonymous"
                 className="w-full object-cover"
                 style={{ aspectRatio: '4/5', maxHeight: '580px' }}
               />
