@@ -75,13 +75,13 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex items-center justify-between">
+        <div className="border-t border-white/10 pt-8 flex items-center md:justify-between gap-4">
           <p className="text-white/40 text-xs">
             &copy; {new Date().getFullYear()} DruCare — כל הזכויות שמורות
           </p>
           <button
             onClick={scrollToTop}
-            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light hover-btn"
+            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-pointer hover-circle-light hover-btn shrink-0"
             aria-label="חזרה למעלה"
           >
             <ArrowUp className="w-4 h-4 text-white" />
