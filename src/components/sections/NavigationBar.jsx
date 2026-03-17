@@ -63,7 +63,12 @@ export const NavigationBar = () => {
   const scrollTo = useCallback((href) => {
     setMobileOpen(false);
     setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      const el = document.querySelector(href);
+      if (el) {
+        const headerOffset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     }, 300);
   }, []);
 
