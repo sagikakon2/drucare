@@ -19,20 +19,20 @@ export const FloatingOrderButton = () => {
         <>
           {/* Mobile: bottom bar */}
           <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            className="fixed bottom-0 inset-x-0 z-40 md:hidden"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '100%', opacity: 0 }}
+            transition={{ type: 'tween', duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed bottom-5 inset-x-5 z-40 md:hidden rounded-2xl"
             style={{
-              background: 'rgba(255, 255, 255, 0.82)',
+              background: 'rgba(255, 255, 255, 0.85)',
               backdropFilter: 'blur(16px) saturate(180%)',
               WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-              borderTop: '1px solid rgba(46, 125, 50, 0.1)',
-              boxShadow: '0 -2px 20px rgba(0, 0, 0, 0.06)',
+              border: '1px solid rgba(46, 125, 50, 0.08)',
+              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
             }}
           >
-            <div className="px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <div className="px-3.5 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
               <a
                 href="https://app.shopix.global/user/drucare"
                 target="_blank"

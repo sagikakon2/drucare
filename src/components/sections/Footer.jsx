@@ -75,7 +75,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 pb-20 md:pb-0 flex items-center md:justify-between gap-4">
+        <div className="border-t border-white/10 pt-8 pb-16 md:pb-0 flex items-center md:justify-between gap-4">
           <p className="text-white/40 text-xs">
             &copy; {new Date().getFullYear()} DruCare — כל הזכויות שמורות
           </p>

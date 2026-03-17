@@ -23,8 +23,20 @@ export const CDN_IMAGES = {
   result6: `${IMG}/51b4a0dd5_result-6.jpeg`,
   result7: `${IMG}/7b2dc3ad2_result-7.jpeg`,
   result8: `${IMG}/cd069b7d8_result-8.jpeg`,
+  brandStoryBg: `${IMG}/1f9e15208_WhatsAppImage2026-03-17at135339.jpeg`,
 };
 
 export const CDN_VIDEOS = {
   heroMobile: `${VID}/ba25bbf3b_hero-mobile.mp4`,
+  reel1: `${VID}/ddafda409_1.mp4`,
+  reel2: `${VID}/2199fdf02_2.mp4`,
+  reel3: `${VID}/654093420_3.mp4`,
+  reel4: `${VID}/4d0635b32_4.mp4`,
+  reel5: `${VID}/eefc8f544_5.mp4`,
+  reel6: `${VID}/8ec823134_6.mp4`,
+  reel7: `${VID}/538554605_7.mp4`,
+  reel8: `${VID}/197a280c2_8.mp4`,
+  reel9: `${VID}/0497efebd_9.mp4`,
+  reel10: `${VID}/8aba6258b_10.mp4`,
+  reel11: `${VID}/bd3a9b38d_WhatsAppVideo2026-03-17at191214.mp4`,
 };

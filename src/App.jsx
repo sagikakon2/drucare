@@ -12,6 +12,7 @@ import { AboutProduct } from '@/components/sections/AboutProduct';
 import { BrandStory } from '@/components/sections/BrandStory';
 import { HowToUse } from '@/components/sections/HowToUse';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { VideoReels } from '@/components/sections/VideoReels';
 import { FAQ } from '@/components/sections/FAQ';
 import { Contact } from '@/components/sections/Contact';
 import { LogosBar } from '@/components/sections/LogosBar';
@@ -68,6 +69,7 @@ const App = () => {
           <Benefits />
           <SectionDivider from="bg-alt" to="bg" />
           <BeforeAfter />
+          <VideoReels />
           <SectionDivider from="bg" to="bg-alt" />
           <LogosBar />
           <AboutProduct />

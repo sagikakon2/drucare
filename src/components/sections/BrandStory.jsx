@@ -31,7 +31,7 @@ export const BrandStory = () => (
     className="relative overflow-hidden"
     style={{
       paddingBlock: 'var(--section-py)',
-      backgroundImage: `url(${CDN_IMAGES.heroRanch})`,
+      backgroundImage: `url(${CDN_IMAGES.brandStoryBg})`,
       backgroundAttachment: 'fixed',
       backgroundPosition: 'center',
       backgroundSize: 'cover',

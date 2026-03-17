@@ -24,3 +24,5 @@ dist
 
 # Raw assets (uploaded to CDN)
 first assets/
+assets*/*
+asssets/

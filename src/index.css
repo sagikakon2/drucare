@@ -49,6 +49,11 @@ a, button, [role="button"] {
 @media (min-width: 768px) { .testimonial-slide { flex: 0 0 46%; } }
 @media (min-width: 1024px) { .testimonial-slide { flex: 0 0 36%; } }
 
+.reel-slide { flex: 0 0 42%; height: clamp(340px, 60vw, 520px); }
+@media (min-width: 640px) { .reel-slide { flex: 0 0 32%; height: 480px; } }
+@media (min-width: 768px) { .reel-slide { flex: 0 0 24%; height: 500px; } }
+@media (min-width: 1024px) { .reel-slide { flex: 0 0 18%; height: 520px; } }
+
 .gradient-blob {
   position: absolute;
   border-radius: 50%;
