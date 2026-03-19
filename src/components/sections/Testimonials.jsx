@@ -109,7 +109,8 @@ export const Testimonials = () => {
     if (!el) return;
     const child = el.children[i];
     if (!child) return;
-    child.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+    const scrollTarget = child.offsetLeft - (el.offsetWidth - child.offsetWidth) / 2;
+    el.scrollTo({ left: scrollTarget, behavior: 'smooth' });
     setActiveIndex(i);
   }, []);
 
