@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 
 export const FloatingOrderButton = () => {
   const [visible, setVisible] = useState(false);
+  const thresholdRef = useRef(window.innerHeight * 0.7);
 
   useEffect(() => {
     const onScroll = () => {
-      setVisible(window.scrollY > window.innerHeight * 0.7);
+      setVisible(window.scrollY > thresholdRef.current);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -23,16 +24,18 @@ export const FloatingOrderButton = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
             transition={{ type: 'tween', duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed bottom-5 inset-x-5 z-40 md:hidden rounded-2xl"
+            className="fixed inset-x-5 z-40 md:hidden rounded-2xl"
             style={{
+              bottom: 'calc(1.25rem + env(safe-area-inset-bottom, 0px))',
               background: 'rgba(255, 255, 255, 0.85)',
               backdropFilter: 'blur(16px) saturate(180%)',
               WebkitBackdropFilter: 'blur(16px) saturate(180%)',
               border: '1px solid rgba(46, 125, 50, 0.08)',
               boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
+              willChange: 'transform',
             }}
           >
-            <div className="px-3.5 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <div className="px-3.5 py-3">
               <a
                 href="https://app.shopix.global/user/drucare"
                 target="_blank"

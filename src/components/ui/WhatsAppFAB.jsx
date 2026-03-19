@@ -1,15 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export const WhatsAppFAB = () => {
   const [barVisible, setBarVisible] = useState(false);
+  const thresholdRef = useRef(window.innerHeight * 0.7);
+  const isMobile = useRef(window.matchMedia('(max-width: 767px)').matches);
 
   useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const onMedia = (e) => { isMobile.current = e.matches; };
+    mql.addEventListener('change', onMedia);
+
     const onScroll = () => {
-      setBarVisible(window.scrollY > window.innerHeight * 0.7);
+      setBarVisible(isMobile.current && window.scrollY > thresholdRef.current);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      mql.removeEventListener('change', onMedia);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
@@ -18,10 +27,12 @@ export const WhatsAppFAB = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp"
-      animate={{ bottom: barVisible ? 96 : 20 }}
+      animate={{ y: barVisible ? -76 : 0 }}
       transition={{ type: 'tween', duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="fixed left-2 md:left-5 md:!bottom-5 z-50 w-13 h-13 md:w-14 md:h-14 bg-[#25D366] rounded-full flex items-center justify-center cursor-pointer hover-scale animate-fab"
+      className="fixed left-2 md:left-5 z-50 w-13 h-13 md:w-14 md:h-14 bg-[#25D366] rounded-full flex items-center justify-center cursor-pointer hover-scale animate-fab"
       style={{
+        bottom: 'calc(1.25rem + env(safe-area-inset-bottom, 0px))',
+        willChange: 'transform',
         '--fab-shadow': '0 2px 10px rgba(37, 211, 102, 0.3)',
         '--fab-ring': 'rgba(37, 211, 102, 0.25)',
         '--fab-ring-out': 'rgba(37, 211, 102, 0)',
