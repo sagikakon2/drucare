@@ -13,7 +13,6 @@ const REELS = [
   { src: CDN_VIDEOS.reel7 },
   { src: CDN_VIDEOS.reel8 },
   { src: CDN_VIDEOS.reel9 },
-  { src: CDN_VIDEOS.reel10 },
   { src: CDN_VIDEOS.reel11 },
 ];
 
