@@ -126,13 +126,41 @@ a, button, [role="button"] {
   100% { transform: translateX(0); }
 }
 
-@keyframes menu-item-in {
-  from { opacity: 0; transform: translateX(12px); }
-  to { opacity: 1; transform: translateX(0); }
+/* Mobile menu – 100% compositor-thread animations (no JS animation frames) */
+.mobile-menu-backdrop {
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  visibility: hidden;
+  transition: background 0.3s ease-out, visibility 0s 0.3s;
+  will-change: background;
 }
+.mobile-menu-backdrop.open {
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  visibility: visible;
+  transition: background 0.3s ease-out, visibility 0s 0s;
+}
+
+.mobile-menu-panel {
+  transform: translateX(100%);
+  background: linear-gradient(165deg, #3a5a3a 0%, #2d3b2d 50%, #243024 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.3);
+  will-change: transform;
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.mobile-menu-panel.open {
+  transform: translateX(0);
+}
+
 .mobile-menu-item {
   opacity: 0;
-  animation: menu-item-in 0.3s ease-out forwards;
+  transform: translateX(12px);
+  transition: opacity 0.28s ease-out, transform 0.28s ease-out;
+}
+.mobile-menu-panel.open .mobile-menu-item {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .hover-card {

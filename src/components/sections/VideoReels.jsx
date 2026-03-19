@@ -133,18 +133,42 @@ function VideoLightbox({ src, onClose, onPrev, onNext, index, total, muted, onTo
 }
 
 function ReelThumb({ src, onClick }) {
+  const containerRef = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       className="relative w-full h-full shrink-0 snap-center rounded-2xl overflow-hidden cursor-pointer group"
       onClick={onClick}
     >
-      <video
-        src={`${src}#t=0.001`}
-        muted
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      />
+      {inView ? (
+        <video
+          src={`${src}#t=0.001`}
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/10 animate-pulse" />
+      )}
 
       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
 
