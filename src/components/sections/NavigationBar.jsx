@@ -136,7 +136,7 @@ export const NavigationBar = () => {
             onClick={closeMobile}
           >
             <div className="relative h-full flex flex-col px-6 py-5 overflow-hidden">
-              <div className="flex items-center justify-between">
+              <div className="relative z-10 flex items-center justify-between">
                 <img src="/images/logo.png" alt="DruCare" className="h-9 w-auto brightness-0 invert" />
                 <button
                   onClick={closeMobile}
