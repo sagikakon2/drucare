@@ -139,7 +139,7 @@ function ReelThumb({ src, onClick }) {
       onClick={onClick}
     >
       <video
-        src={src}
+        src={`${src}#t=0.001`}
         muted
         playsInline
         preload="metadata"

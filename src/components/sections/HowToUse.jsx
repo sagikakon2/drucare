@@ -124,7 +124,8 @@ const TreatmentSelector = ({ treatments, activeIndex, onSelect }) => {
     if (!el) return;
     const activeCard = el.children[activeIndex];
     if (activeCard) {
-      activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      const scrollTarget = activeCard.offsetLeft - (el.offsetWidth - activeCard.offsetWidth) / 2;
+      el.scrollTo({ left: scrollTarget, behavior: 'smooth' });
     }
   }, [activeIndex]);
 

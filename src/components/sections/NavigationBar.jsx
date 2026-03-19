@@ -39,37 +39,30 @@ export const NavigationBar = () => {
 
   useEffect(() => {
     if (mobileOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.insetInline = '0';
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     } else {
-      const top = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.insetInline = '';
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      if (top) window.scrollTo(0, parseInt(top, 10) * -1);
     }
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.insetInline = '';
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
   }, [mobileOpen]);
 
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
+
   const scrollTo = useCallback((href) => {
     setMobileOpen(false);
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       const el = document.querySelector(href);
       if (el) {
         const headerOffset = 80;
         const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
-    }, 300);
+    });
   }, []);
 
   return (
@@ -139,21 +132,14 @@ export const NavigationBar = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[100] md:hidden"
-            style={{ overscrollBehavior: 'none' }}
+            style={{ ...glassStyleDark, touchAction: 'none', overscrollBehavior: 'none' }}
+            onClick={closeMobile}
           >
-            <div
-              className="absolute inset-0"
-              style={glassStyleDark}
-              onClick={() => setMobileOpen(false)}
-              onTouchMove={(e) => e.preventDefault()}
-            />
-
             <div className="relative h-full flex flex-col px-6 py-5 overflow-hidden">
               <div className="flex items-center justify-between">
                 <img src="/images/logo.png" alt="DruCare" className="h-9 w-auto brightness-0 invert" />
                 <button
-                  onClick={() => setMobileOpen(false)}
-                  onTouchEnd={(e) => { e.preventDefault(); setMobileOpen(false); }}
+                  onClick={closeMobile}
                   className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer text-white/80 hover:text-white transition-colors"
                   style={{ background: 'rgba(255,255,255,0.1)' }}
                   aria-label="סגור תפריט"

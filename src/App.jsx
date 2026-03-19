@@ -38,8 +38,8 @@ const App = () => {
   }, []);
 
   const handleReady = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setReady(true);
-    window.scrollTo(0, 0);
   }, []);
 
   return (
