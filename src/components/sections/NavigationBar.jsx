@@ -138,7 +138,7 @@ export const NavigationBar = () => {
               onClick={closeMobile}
             />
 
-            {/* Menu panel - slides in from the right, glass effect already applied */}
+            {/* Menu panel - slides in, solid background (no backdrop-filter for perf) */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -146,10 +146,8 @@ export const NavigationBar = () => {
               transition={{ type: 'tween', duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
               className="fixed inset-y-0 right-0 w-[85%] max-w-[360px] z-[101] md:hidden"
               style={{
-                background: 'rgba(45, 59, 45, 0.95)',
-                backdropFilter: 'blur(20px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'linear-gradient(165deg, #3a5a3a 0%, #2d3b2d 50%, #243024 100%)',
+                borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
                 boxShadow: '-8px 0 40px rgba(0, 0, 0, 0.3)',
                 willChange: 'transform',
                 touchAction: 'none',
@@ -172,11 +170,10 @@ export const NavigationBar = () => {
                 <nav className="flex-1 flex flex-col justify-center -mt-8">
                   <div className="space-y-1">
                     {NAV_LINKS.map((link, i) => (
-                      <motion.div
+                      <div
                         key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.15 + i * 0.04, duration: 0.3 }}
+                        className="mobile-menu-item"
+                        style={{ animationDelay: `${0.12 + i * 0.04}s` }}
                       >
                         <button
                           onClick={() => scrollTo(link.href)}
@@ -185,16 +182,14 @@ export const NavigationBar = () => {
                         >
                           {link.label}
                         </button>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </nav>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.3 }}
-                  className="space-y-3 pb-4"
+                <div
+                  className="space-y-3 pb-4 mobile-menu-item"
+                  style={{ animationDelay: '0.3s' }}
                 >
                   <a
                     href="https://app.shopix.global/user/drucare"
@@ -217,7 +212,7 @@ export const NavigationBar = () => {
                     <Phone className="w-4 h-4" />
                     054-566-1535
                   </a>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </>
